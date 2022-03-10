@@ -5,28 +5,36 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import { Rating } from "@mui/material";
 
 export default function product({ product }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, margin: "20px" }}>
       <CardMedia
         component="img"
         height="440"
-        image={product.images[0].url}
+        image={
+          "https://www.intimissimi.com/dw/image/v2/BHHR_PRD/on/demandware.static/-/Sites-INT_EC_COM/default/dwc1365929/images/CMU12G860I-FI.jpg?sw=800&sfrm=jpeg"
+        }
         alt="green iguana"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {product.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
+        <Rating
+          name="half-rating"
+          defaultValue={2.5}
+          precision={0.5}
+          readOnly
+        />
+        <Typography variant="subtitle2"> 256 review </Typography>
+        <Typography variant="subtitle2"> Price: 20£ </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small">set Favourtie</Button>
+        <Button size="small">add to cart</Button>
       </CardActions>
     </Card>
   );

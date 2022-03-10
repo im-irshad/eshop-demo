@@ -24,7 +24,7 @@ export default function Footer() {
         component="div"
         sx={{ width: "30%", p: 2, border: "1px dashed grey" }}
       >
-        <Button>Follow Us</Button>
+        <Button>Follow Us </Button>
       </Box>
     </Box>
   );
