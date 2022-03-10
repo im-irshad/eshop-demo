@@ -34,7 +34,9 @@ export default function product({ product }) {
       </CardContent>
       <CardActions>
         <Button size="small">set Favourtie</Button>
-        <Button size="small">add to cart</Button>
+        <Button size="small" href={`/product/${product._id}`}>
+          View Detail
+        </Button>
       </CardActions>
     </Card>
   );
