@@ -52,7 +52,7 @@ function Corousel() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ maxWidth: "100%", flexGrow: 1 }}>
       <Paper
         square
         elevation={0}
@@ -76,11 +76,11 @@ function Corousel() {
               <Box
                 component="img"
                 sx={{
-                  height: 255,
+                  height: "50vh",
                   display: "block",
-                  maxWidth: 400,
+                  maxWidth: "90%",
                   overflow: "hidden",
-                  width: "100%",
+                  width: "90%",
                 }}
                 src={step.imgPath}
                 alt={step.label}

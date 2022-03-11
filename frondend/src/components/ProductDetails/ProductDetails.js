@@ -4,23 +4,48 @@ import PdData from "./PdData";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../redux/actions/productAction";
 import { useParams } from "react-router-dom";
+import { Grid } from "@mui/material";
+import Loader from "../Loader/Loader";
+import productDetailsReducer from "../../redux/reducers/productDetailsReducer";
 
 function ProductDetails() {
-  const { id } = useParams();
   const dispatch = useDispatch();
-  console.log(id);
-  const { product, loading, error } = useSelector(
+  const { id } = useParams();
+  const { loading, product } = useSelector(
     (state) => state.productDetailsReducer
   );
+  console.log(product);
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
 
   return (
-    <div>
-      <Corousel />
-      <PdData />
-    </div>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Grid container spacing={2} mt={6} mb={6}>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              border: "1px solid black",
+            }}
+          >
+            <Corousel />
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              border: "1px solid black",
+            }}
+          >
+            <PdData product={product} />
+          </Grid>
+        </Grid>
+      )}
+    </>
   );
 }
 

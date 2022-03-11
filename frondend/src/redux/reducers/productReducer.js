@@ -3,7 +3,7 @@ import {
   ALL_PRODUCT_SUCCESS,
   ALL_PRODUCT_FAIL,
   CLEAR_ERRORS,
-} from "../actions/productConstants";
+} from "../constants/productConstants";
 
 const initialState = {
   products: [],

@@ -8,7 +8,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   CLEAR_ERRORS,
-} from "../actions/productConstants";
+} from "../constants/productConstants";
 
 export const getProduct = () => async (dispatch) => {
   try {

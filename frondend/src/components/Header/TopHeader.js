@@ -70,9 +70,13 @@ export default function TopHeader() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" href="/login">
+            Login
+          </Button>
           <Button color="inherit">cart</Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" href="/signup">
+            Signup
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
