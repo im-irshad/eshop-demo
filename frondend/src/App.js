@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import { loadUser } from "./redux/actions/userAction";
 import Profile from "./components/User/Profile";
 import UserMenu from "./components/Header/UserMenu";
+import { PrivateRoute } from "./components/Route/PrivateRoute";
+import UpdateProfile from "./components/User/UpdateProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,16 +27,18 @@ function App() {
       <CssBaseline />
       <Router>
         <Header />
-
+        {isAuth && <UserMenu user={user} />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/account" element={<Profile />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/account" element={<Profile />} />
+            <Route path="/me/update" element={<UpdateProfile />} />
+          </Route>
         </Routes>
-        {isAuth && <UserMenu user={user} />}
         <Footer />
       </Router>
     </>
