@@ -19,7 +19,7 @@ function UpdateProfile() {
   const dispatch = useDispatch();
   let Navigate = useNavigate();
 
-  const { user } = useSelector((state) => state.userReducer);
+  const { user } = useSelector((state) => state.UserReducer);
   const { error, isUpdated, loading } = useSelector(
     (state) => state.profileReducer
   );
@@ -29,12 +29,12 @@ function UpdateProfile() {
 
   const updateProfileSubmit = (e) => {
     e.preventDefault();
-
+    console.log("submit executed");
     const myForm = new FormData();
 
     myForm.set("name", name);
     myForm.set("email", email);
-    dispatch(updateProfile(myForm));
+    dispatch(updateProfile({ name, email }));
   };
 
   useEffect(() => {
