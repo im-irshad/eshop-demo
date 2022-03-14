@@ -3,8 +3,18 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { Rating } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useParams } from "react-router-dom";
+import { addItToCart } from "../../redux/actions/cartAction";
+import { useDispatch } from "react-redux";
 
 function PdData({ product }) {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const quantity = 1;
+  function handleAddToCart() {
+    dispatch(addItToCart(id, quantity));
+  }
+
   return (
     <div>
       <Box
@@ -35,7 +45,9 @@ function PdData({ product }) {
           <Typography variant="h2">{product.price} Kr</Typography>
         </Box>
         <Box component="div">
-          <Button variant="outlined">Add to Cart</Button>
+          <Button variant="outlined" onClick={handleAddToCart}>
+            Add to Cart
+          </Button>
         </Box>
         <Typography>Status</Typography>
         <Typography>in Stock</Typography>

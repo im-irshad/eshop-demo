@@ -14,6 +14,7 @@ import Profile from "./components/User/Profile";
 import UserMenu from "./components/Header/UserMenu";
 import { PrivateRoute } from "./components/Route/PrivateRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
             <Route path="/account" element={<Profile />} />
             <Route path="/me/update" element={<UpdateProfile />} />
           </Route>
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </Router>
