@@ -73,7 +73,9 @@ export default function TopHeader() {
           <Button color="inherit" href="/login">
             Login
           </Button>
-          <Button color="inherit">cart</Button>
+          <Button color="inherit" href="/cart">
+            cart
+          </Button>
           <Button color="inherit" href="/signup">
             Signup
           </Button>

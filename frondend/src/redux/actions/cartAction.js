@@ -16,7 +16,14 @@ export const addItToCart = (id, quantity) => async (dispatch, getState) => {
     },
   });
 
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  try {
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getState().cart.cartItems)
+    );
+  } catch {
+    console.log("error saving local storage");
+  }
 };
 
 export const rmvItFromCart = (id) => async (dispatch, getState) => {
@@ -25,5 +32,12 @@ export const rmvItFromCart = (id) => async (dispatch, getState) => {
     payload: id,
   });
 
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+  try {
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(getState().cart.cartItems)
+    );
+  } catch {
+    console.log("error removing from card");
+  }
 };
