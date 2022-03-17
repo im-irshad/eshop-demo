@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Login from "../User/Login";
 
-export const PrivateRoute = () => {
+export const PrivateRoute = ({ isAdmin }) => {
   const { isAuth, user, loading } = useSelector((state) => state.UserReducer);
 
   return <>{!loading && (isAuth ? <Outlet /> : <Login />)}</>;

@@ -15,6 +15,21 @@ import UserMenu from "./components/Header/UserMenu";
 import { PrivateRoute } from "./components/Route/PrivateRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/CheckOut/Checkout";
+import PaymentForm from "./components/CheckOut/PaymentForm";
+import AddressForm from "./components/CheckOut/AddressForm";
+import Review from "./components/CheckOut/Review";
+import MyOrders from "./components/Order/MyOrders";
+import OrderDetails from "./components/Order/OrderDetails";
+import Dashboard from "./components/Admin/Dashboard";
+import OrderList from "./components/Admin/Orders/OrderList";
+import ProcessOrder from "./components/Admin/Orders/ProcessOrder";
+import ProductReviews from "./components/Admin/Reviews/ProductReviews";
+import UpdateUser from "./components/Admin/Users/UpdateUser";
+import UsersList from "./components/Admin/Users/UsersList";
+import ProductList from "./components/Admin/Product/ProductList";
+import NewProduct from "./components/Admin/Product/NewProduct";
+import UpdateProduct from "./components/Admin/Product/UpdateProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +55,24 @@ function App() {
             <Route path="/me/update" element={<UpdateProfile />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/checkout" element={<AddressForm />} />
+            <Route path="/order/confirm" element={<Review />} />
+            <Route path="/process/payment" element={<PaymentForm />} />
+            <Route path="/orders" element={<MyOrders />} />
+            <Route path="/order/:id" element={<OrderDetails />} />
+          </Route>
+          <Route element={<PrivateRoute isAdmin={true} />}>
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/products" element={<ProductList />} />
+            <Route path="/admin/product" element={<NewProduct />} />
+            <Route path="/admin/product/:id" element={<UpdateProduct />} />
+            <Route path="/admin/orders" element={<OrderList />} />
+            <Route path="/admin/orders/:id" element={<ProcessOrder />} />
+            <Route path="/admin/users" element={<UsersList />} />
+            <Route path="/admin/user/:id" element={<UpdateUser />} />
+            <Route path="/admin/reviews" element={<ProductReviews />} />
+          </Route>
         </Routes>
         <Footer />
       </Router>

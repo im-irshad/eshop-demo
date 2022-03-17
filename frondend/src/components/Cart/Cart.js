@@ -61,6 +61,9 @@ function Cart() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Button href="/checkout" variant="contained" size="medium">
+        Checkout
+      </Button>
     </div>
   );
 }

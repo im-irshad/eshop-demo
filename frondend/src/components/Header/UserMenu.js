@@ -30,7 +30,7 @@ export default function UserMenu({ user }) {
   }
 
   function dashboard() {
-    Navigate("/dashboard");
+    Navigate("/admin/dashboard");
   }
 
   console.log(user.role);
