@@ -15,8 +15,8 @@ export default function UsersMenu() {
 
   return (
     <div>
-      <Button id="basic-button" onClick={handleClick}>
-        Dashboard
+      <Button id="basic-button" onClick={handleClick} variant="contained">
+        User Menu
       </Button>
       <Menu
         id="basic-menu"
@@ -24,9 +24,9 @@ export default function UsersMenu() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>Create User</MenuItem>
+        <MenuItem onClick={handleClose}>Update User</MenuItem>
+        <MenuItem onClick={handleClose}>List All Users</MenuItem>
       </Menu>
     </div>
   );

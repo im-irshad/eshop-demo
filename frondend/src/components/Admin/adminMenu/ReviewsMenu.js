@@ -15,8 +15,8 @@ export default function ReviewsMenu() {
 
   return (
     <div>
-      <Button id="basic-button" onClick={handleClick}>
-        Dashboard
+      <Button id="basic-button" onClick={handleClick} variant="contained">
+        Reviews Menu
       </Button>
       <Menu
         id="basic-menu"

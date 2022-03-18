@@ -15,8 +15,8 @@ export default function OrderMenu() {
 
   return (
     <div>
-      <Button id="basic-button" onClick={handleClick}>
-        Dashboard
+      <Button id="basic-button" onClick={handleClick} variant="contained">
+        Order Menu
       </Button>
       <Menu
         id="basic-menu"
@@ -24,8 +24,8 @@ export default function OrderMenu() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>View All Orders</MenuItem>
-        <MenuItem onClick={handleClose}>Process Orders</MenuItem>
+        <MenuItem onClick={handleClose}>Process Order</MenuItem>
+        <MenuItem onClick={handleClose}>List All Orders</MenuItem>
       </Menu>
     </div>
   );

@@ -15,8 +15,8 @@ export default function ProductMenu() {
 
   return (
     <div>
-      <Button id="basic-button" onClick={handleClick}>
-        Dashboard
+      <Button id="basic-button" onClick={handleClick} variant="contained">
+        Product Menu
       </Button>
       <Menu
         id="basic-menu"
