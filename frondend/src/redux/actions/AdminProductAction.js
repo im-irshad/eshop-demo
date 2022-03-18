@@ -23,7 +23,7 @@ export const getAdminProduct = () => async (dispatch) => {
 
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,
-      payload: data.products,
+      payload: data.product,
     });
   } catch (error) {
     dispatch({

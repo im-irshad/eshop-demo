@@ -4,9 +4,9 @@ import {
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_RESET,
   CLEAR_ERRORS,
-} from "../constants/productConstants";
+} from "../../constants/productConstants";
 
-export const newProdReducer = (state = { product: {} }, action) => {
+export default function newProdReducer(state = { product: {} }, action) {
   switch (action.type) {
     case NEW_PRODUCT_REQ:
       return {
@@ -38,4 +38,4 @@ export const newProdReducer = (state = { product: {} }, action) => {
     default:
       return state;
   }
-};
+}

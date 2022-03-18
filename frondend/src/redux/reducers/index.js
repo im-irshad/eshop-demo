@@ -11,7 +11,9 @@ import {
   orderDetailsReducer,
   orderReducer,
 } from "./orderReducer";
-
+import delUpateReducer from "./adminReducers/delUpdateReducer";
+import newProdReducer from "./adminReducers/newProdReducer";
+import prodsAdminReducer from "./adminReducers/prodsAdminReducer";
 const rootReducer = combineReducers({
   productReducer,
   productDetailsReducer,
@@ -23,6 +25,9 @@ const rootReducer = combineReducers({
   newOrderReducer,
   orderDetailsReducer,
   orderReducer,
+  delUpateReducer,
+  newProdReducer,
+  prodsAdminReducer,
 });
 
 export default rootReducer;

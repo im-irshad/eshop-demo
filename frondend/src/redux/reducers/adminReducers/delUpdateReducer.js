@@ -8,9 +8,9 @@ import {
   DELETE_PRODUCT_FAIL,
   DELETE_PRODUCT_RESET,
   CLEAR_ERRORS,
-} from "../constants/productConstants";
+} from "../../constants/productConstants";
 
-export const delUpdateReducer = (state = {}, action) => {
+export default function delUpdateReducer(state = {}, action) {
   switch (action.type) {
     case DELETE_PRODUCT_REQ:
     case UPDATE_PRODUCT_REQ:
@@ -56,4 +56,4 @@ export const delUpdateReducer = (state = {}, action) => {
     default:
       return state;
   }
-};
+}
