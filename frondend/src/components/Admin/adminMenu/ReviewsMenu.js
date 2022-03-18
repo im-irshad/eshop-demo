@@ -2,8 +2,10 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
 export default function ReviewsMenu() {
+  const Navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -11,6 +13,7 @@ export default function ReviewsMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    Navigate("/admin/reviews");
   };
 
   return (

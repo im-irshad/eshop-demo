@@ -21,6 +21,16 @@ exports.getAllProducts = async (req, res) => {
   });
 };
 
+// get All product--admin--
+exports.getAdminProducts = async (req, res) => {
+  const product = await Product.find(req.body);
+
+  res.status(201).json({
+    success: true,
+    product,
+  });
+};
+
 // get single product by admin user
 exports.getProductDetails = async (req, res, next) => {
   const product = await Product.findById(req.params.id);
