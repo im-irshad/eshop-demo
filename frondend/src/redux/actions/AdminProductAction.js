@@ -34,6 +34,7 @@ export const getAdminProduct = () => async (dispatch) => {
 };
 
 export const createProduct = (productData) => async (dispatch) => {
+  console.log(productData);
   try {
     dispatch({ type: NEW_PRODUCT_REQ });
 

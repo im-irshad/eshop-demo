@@ -15,6 +15,7 @@ import { createProduct } from "../../../redux/actions/adminProductAction";
 function NewProduct() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
+  ///////////
 
   const { loading, error, success } = useSelector(
     (state) => state.newProdReducer
@@ -40,7 +41,7 @@ function NewProduct() {
 
   const createProductHandler = (e) => {
     e.preventDefault();
-
+    console.log(name);
     const myForm = new FormData();
 
     myForm.set("name", name);
@@ -48,8 +49,9 @@ function NewProduct() {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
-
-    dispatch(createProduct(myForm));
+    console.log(myForm);
+    dispatch(createProduct({ name, price, description, Stock, category }));
+    console.log({ name, price, description, Stock, category });
   };
   return (
     <div>
@@ -64,9 +66,11 @@ function NewProduct() {
             label="Product Name"
             variant="outlined"
             type="text"
+            name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             fullWidth
+            sx={{ mt: 3, mb: 2 }}
           />
           <TextField
             id="Price"
@@ -76,6 +80,7 @@ function NewProduct() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             fullWidth
+            sx={{ mt: 3, mb: 2 }}
           />
           <TextField
             fullWidth
@@ -87,6 +92,7 @@ function NewProduct() {
             type=""
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            sx={{ mt: 3, mb: 2 }}
           />
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
@@ -116,8 +122,9 @@ function NewProduct() {
             type="number"
             value={Stock}
             onChange={(e) => setStock(e.target.value)}
+            sx={{ mt: 3, mb: 2 }}
           />
-          <Button fullWidth type="submit">
+          <Button fullWidth type="submit" sx={{ mt: 3, mb: 2 }}>
             Add New Product
           </Button>
         </form>
