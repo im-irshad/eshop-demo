@@ -5,10 +5,12 @@ import { getAdminProduct } from "../../../redux/actions/adminProductAction";
 import { DataGrid } from "@mui/x-data-grid";
 import Loader from "../../Loader/Loader";
 import { clearErrors } from "../../../redux/actions/productAction";
+import { Button } from "@mui/material";
 
 function ProductList() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
+
   const rows = [];
   const { loading, products } = useSelector((state) => state.prodsAdminReducer);
   useEffect(() => {
@@ -32,6 +34,20 @@ function ProductList() {
       field: "price",
       headerName: "Price",
       type: "number",
+    },
+
+    {
+      field: "Edit/Delete",
+      headerName: "Edit/Delete",
+      type: "number",
+      renderCell: (params) => {
+        return (
+          <div>
+            <Button href={`/admin/product/${params.id}`}>Edit</Button>
+            <Button>Delete</Button>
+          </div>
+        );
+      },
     },
   ];
   console.log(products);
