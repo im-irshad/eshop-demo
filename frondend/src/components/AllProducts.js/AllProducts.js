@@ -13,12 +13,12 @@ import { useEffect } from "react";
 
 export default function AllProducts() {
   const dispatch = useDispatch();
-  const { loading, error, products } = useSelector(
+  const { loading, error, products, productsCount, itemsPerPage } = useSelector(
     (state) => state.productReducer
   );
 
   const { keyword } = useParams();
-  console.log(keyword);
+  console.log(productsCount, itemsPerPage);
   useEffect(() => {
     dispatch(getProduct(keyword));
   }, [dispatch, keyword]);

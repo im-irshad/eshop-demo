@@ -17,6 +17,7 @@ export const getProduct =
     try {
       dispatch({ type: ALL_PRODUCT_REQ });
       const { data } = await axios.get(`/api/v1/products?keyword=${keyword}`);
+      console.log(data);
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,

@@ -19,6 +19,8 @@ export default function productReducer(state = initialState, productAction) {
       return {
         loading: false,
         products: productAction.payload.product,
+        productsCount: productAction.payload.productCount,
+        itemsPerPage: productAction.payload.itemsPerPage,
       };
     case ALL_PRODUCT_FAIL:
       return {

@@ -14,11 +14,18 @@ exports.createProduct = async (req, res, next) => {
 };
 // get product
 exports.getAllProducts = async (req, res) => {
-  const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
+  const itemsPerPage = 5;
+  const productCount = await Product.countDocuments();
+  const apiFeatures = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(itemsPerPage);
   const product = await apiFeatures.query;
   res.status(201).json({
     success: true,
     product,
+    productCount,
+    itemsPerPage,
   });
 };
 
