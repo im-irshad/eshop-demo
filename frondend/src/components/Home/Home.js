@@ -10,7 +10,7 @@ function Home() {
   const { loading, error, products } = useSelector(
     (state) => state.productReducer
   );
-  console.log(products);
+
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);

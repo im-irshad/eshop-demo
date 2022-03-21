@@ -1,15 +1,15 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Container, Grid, Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../redux/actions/productAction";
 import Loader from "../Loader/Loader";
+import { useEffect } from "react";
 
 export default function AllProducts() {
   const dispatch = useDispatch();
@@ -17,9 +17,11 @@ export default function AllProducts() {
     (state) => state.productReducer
   );
 
-  React.useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+  const { keyword } = useParams();
+  console.log(keyword);
+  useEffect(() => {
+    dispatch(getProduct(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,6 +6,8 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,6 +52,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function TopHeader() {
+  const Navigate = useNavigate();
+  const [keyword, setKeyword] = useState("");
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    console.log(keyword.trim());
+    if (keyword.trim()) {
+      Navigate(`products/${keyword}`);
+    } else {
+      Navigate("/products");
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -60,16 +74,18 @@ export default function TopHeader() {
             component="div"
             sx={{ flexGrow: 1 }}
           ></Typography>
-
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <form onSubmit={searchHandler}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+            </Search>
+          </form>
           <Button color="inherit" href="/login">
             Login
           </Button>
