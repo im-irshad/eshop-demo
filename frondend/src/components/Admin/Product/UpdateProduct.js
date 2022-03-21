@@ -55,7 +55,7 @@ function NewProduct() {
   const updateProductHandler = (e) => {
     e.preventDefault();
 
-    dispatch(updateProduct({ name, price, description, Stock, category }));
+    dispatch(updateProduct(id, { name, price, description, Stock, category }));
   };
   return (
     <div>
