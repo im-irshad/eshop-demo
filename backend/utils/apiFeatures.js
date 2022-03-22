@@ -15,6 +15,7 @@ class ApiFeature {
     this.query = this.query.find({ ...keyword });
     return this;
   }
+
   filter() {
     const queryCopy = { ...this.queryStr };
 
@@ -25,7 +26,6 @@ class ApiFeature {
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
     this.query = this.query.find(JSON.parse(queryStr));
 
-    this.query = this.query.find(queryCopy);
     return this;
   }
 
