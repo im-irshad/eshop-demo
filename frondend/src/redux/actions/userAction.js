@@ -33,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 // .........REGISTER ACTIONS...........
-export const register = (userData) => async (dispatch) => {
+export const registerUser = (userData) => async (dispatch) => {
   console.log(userData);
   try {
     dispatch({ type: REGISTER_USER_REQ });

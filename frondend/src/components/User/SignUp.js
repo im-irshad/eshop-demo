@@ -9,9 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/actions/userAction";
+import { registerUser } from "../../redux/actions/userAction";
+import { useForm } from "react-hook-form";
 
 function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: "",
@@ -33,10 +39,15 @@ function SignUp() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(registerUser(data));
+  };
+
   return (
     <>
       <div>
-        <form onSubmit={registerSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Container
             maxWidth="sm"
             sx={{ marginTop: "100px", marginBottom: "100px" }}
@@ -52,12 +63,16 @@ function SignUp() {
                       label="Name"
                       placeholder="Enter Your name"
                       variant="outlined"
-                      required
                       fullWidth
                       name="name"
-                      value={name}
-                      onChange={registerDataChange}
+                      //value={name}
+                      //  onChange={registerDataChange}
+                      {...register("name", {
+                        required: true,
+                      })}
                     />
+                    {errors.name?.type === "required" &&
+                      "First name is required"}
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
@@ -66,11 +81,12 @@ function SignUp() {
                       placeholder="Enter your email"
                       variant="outlined"
                       fullWidth
-                      required
                       name="email"
-                      value={email}
-                      onChange={registerDataChange}
+                      //  value={email}
+                      //  onChange={registerDataChange}
+                      {...register("email", { required: "email is required" })}
                     />
+                    {errors.email?.type === "required" && "email is required"}
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
@@ -79,11 +95,15 @@ function SignUp() {
                       placeholder="Enter your password"
                       variant="outlined"
                       fullWidth
-                      required
                       name="password"
-                      value={password}
-                      onChange={registerDataChange}
+                      // value={password}
+                      //    onChange={registerDataChange}
+                      {...register("password", {
+                        required: "password is required",
+                      })}
                     />
+                    {errors.password?.type === "required" &&
+                      "password is required"}
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <Button
