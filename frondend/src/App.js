@@ -30,6 +30,8 @@ import UsersList from "./components/Admin/Users/UsersList";
 import ProductList from "./components/Admin/Product/ProductList";
 import NewProduct from "./components/Admin/Product/NewProduct";
 import UpdateProduct from "./components/Admin/Product/UpdateProduct";
+import ContactUs from "./components/ContactUs";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +53,8 @@ function App() {
           <Route path="/products/:keyword" element={<AllProducts />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route element={<PrivateRoute />}>
             <Route path="/account" element={<Profile />} />
             <Route path="/me/update" element={<UpdateProfile />} />

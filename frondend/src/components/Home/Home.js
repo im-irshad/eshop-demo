@@ -37,7 +37,7 @@ function Home() {
           >
             <Typography variant="h5">Welcome to E-shop</Typography>
             <div>
-              <Button variant="outlined" size="medium">
+              <Button variant="outlined" size="medium" href="#featureProducts">
                 See New Colletion
               </Button>
             </div>
@@ -52,6 +52,7 @@ function Home() {
                 flexWrap: "wrap",
                 justifyContent: "center",
               }}
+              id="featureProducts"
             >
               {products &&
                 products.map((produc) => {

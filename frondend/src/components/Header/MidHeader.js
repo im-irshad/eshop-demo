@@ -23,12 +23,18 @@ export default function MidHeader() {
           <Typography variant="h6" component="div" sx={{ mr: 2 }}>
             E-Shop
           </Typography>
-          <Button color="inherit">Home</Button>
+          <Button color="inherit" href="/">
+            Home
+          </Button>
           <Button color="inherit" href="/products">
             Products
           </Button>
-          <Button color="inherit">Contact</Button>
-          <Button color="inherit">About</Button>
+          <Button color="inherit" href="/contact">
+            Contact
+          </Button>
+          <Button color="inherit" href="/about">
+            About
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
