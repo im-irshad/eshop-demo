@@ -14,7 +14,7 @@ import {
   createProduct,
   updateProduct,
 } from "../../../redux/actions/adminProductAction";
-import { getProductDetails } from "../../../redux/actions/productAction";
+import { getProductDetails } from "../../../redux/actions/productDetailAction";
 
 function NewProduct() {
   const Navigate = useNavigate();

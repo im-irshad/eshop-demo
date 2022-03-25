@@ -36,7 +36,7 @@ export default function AllProducts() {
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState([1, 20000]);
   const [category, setCategory] = useState("");
-
+  console.log(loading);
   const { keyword } = useParams();
   console.log(productsCount, itemsPerPage);
   useEffect(() => {
@@ -94,12 +94,11 @@ export default function AllProducts() {
               {products.map((product) => (
                 <Grid item key={product._id} xs={12} sm={6} md={4}>
                   <Card sx={{ maxWidth: 345, margin: "20px" }}>
+                    {console.log(product.images[0].url)}
                     <CardMedia
                       component="img"
                       height="440"
-                      image={
-                        "https://www.intimissimi.com/dw/image/v2/BHHR_PRD/on/demandware.static/-/Sites-INT_EC_COM/default/dwc1365929/images/CMU12G860I-FI.jpg?sw=800&sfrm=jpeg"
-                      }
+                      image={product.images[0].url}
                       alt="green iguana"
                     />
                     <CardContent>
@@ -113,7 +112,9 @@ export default function AllProducts() {
                         readOnly
                       />
                       <Typography variant="subtitle2"> 256 review </Typography>
-                      <Typography variant="subtitle2"> Price: 20£ </Typography>
+                      <Typography variant="subtitle2">
+                        {product.price}Kr
+                      </Typography>
                     </CardContent>
                     <CardActions>
                       <Button size="small">set Favourtie</Button>

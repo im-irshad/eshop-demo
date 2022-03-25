@@ -7,10 +7,15 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import { Box } from "@mui/system";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../../redux/actions/adminProductAction";
+import {
+  CLEAR_ERRORS,
+  NEW_PRODUCT_RESET,
+} from "../../../redux/constants/productConstants";
 
 function NewProduct() {
   const Navigate = useNavigate();
@@ -39,9 +44,19 @@ function NewProduct() {
     "Sports & Hobbies",
   ];
 
+  useEffect(() => {
+    if (error) {
+      dispatch(CLEAR_ERRORS());
+    }
+
+    if (success) {
+      Navigate("/admin/dashboard");
+      dispatch({ type: NEW_PRODUCT_RESET });
+    }
+  }, [dispatch, Navigate, error, success]);
+
   const createProductHandler = (e) => {
     e.preventDefault();
-    console.log(name);
     const myForm = new FormData();
 
     myForm.set("name", name);
@@ -49,18 +64,42 @@ function NewProduct() {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
+
+    images.forEach((image) => {
+      myForm.append("images", image);
+    });
     console.log(myForm);
-    dispatch(createProduct({ name, price, description, Stock, category }));
-    console.log({ name, price, description, Stock, category });
+    dispatch(createProduct(myForm));
   };
+
+  const createProductImagesChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    setImages([]);
+    setImagesPreview([]);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImagesPreview((old) => [...old, reader.result]);
+          setImages((old) => [...old, reader.result]);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
+  };
+
   return (
     <div>
       <Container
         maxWidth="sm"
         sx={{ marginTop: "100px", marginBottom: "100px" }}
       >
-        NewProduct
-        <form onSubmit={createProductHandler}>
+        Add a New Product
+        <form encType="multipart/form-data" onSubmit={createProductHandler}>
           <TextField
             id="Product Name"
             label="Product Name"
@@ -102,16 +141,14 @@ function NewProduct() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={category}
-              label="Age"
+              label="Category"
               onChange={(e) => setCategory(e.target.value)}
             >
-              <MenuItem value={10}>Computer & Tablets</MenuItem>
-              <MenuItem value={20}>Mobile & Photo</MenuItem>
-              <MenuItem value={30}>Tv & Music</MenuItem>
-              <MenuItem value={40}>Gaming</MenuItem>
-              <MenuItem value={50}>Smart Watch</MenuItem>
-              <MenuItem value={60}>Home</MenuItem>
-              <MenuItem value={70}>Sports & Hobbies</MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <TextField
@@ -124,6 +161,20 @@ function NewProduct() {
             onChange={(e) => setStock(e.target.value)}
             sx={{ mt: 3, mb: 2 }}
           />
+          <div>
+            <input
+              type="file"
+              name="avatar"
+              accept="image/*"
+              onChange={createProductImagesChange}
+              multiple
+            />
+          </div>
+          <Box component="div" id="createProductFormImage">
+            {imagesPreview.map((image, index) => (
+              <img key={index} src={image} alt="Product Preview" />
+            ))}
+          </Box>
           <Button fullWidth type="submit" sx={{ mt: 3, mb: 2 }}>
             Add New Product
           </Button>

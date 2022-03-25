@@ -11,23 +11,24 @@ const initialState = {
 
 export default function productDetailsReducer(
   state = initialState,
-  productAction
+  productDetailAction
 ) {
-  switch (productAction.type) {
+  switch (productDetailAction.type) {
     case PRODUCT_DETAILS_REQ:
       return {
         loading: true,
         ...state,
       };
     case PRODUCT_DETAILS_SUCCESS:
+      console.log(productDetailAction.payload);
       return {
         loading: false,
-        product: productAction.payload,
+        product: productDetailAction.payload,
       };
     case PRODUCT_DETAILS_FAIL:
       return {
         loading: false,
-        error: productAction.payload,
+        error: productDetailAction.payload,
       };
     case CLEAR_ERRORS:
       return {

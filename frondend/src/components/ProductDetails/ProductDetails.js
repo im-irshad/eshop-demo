@@ -1,23 +1,31 @@
 import React, { useEffect } from "react";
-import Corousel from "./Corousel";
+import ProductImages from "./ProductImages";
 import PdData from "./PdData";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../../redux/actions/productAction";
 import { useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import Loader from "../Loader/Loader";
-import productDetailsReducer from "../../redux/reducers/productDetailsReducer";
+import {
+  clearErrors,
+  getProductDetails,
+} from "../../redux/actions/productDetailAction";
 
 function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { loading, product } = useSelector(
+  const { error, product, loading } = useSelector(
     (state) => state.productDetailsReducer
   );
-  console.log(product);
+
   useEffect(() => {
+    if (error) {
+      dispatch(clearErrors());
+    }
+
     dispatch(getProductDetails(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, error]);
+
+  console.log(product, loading, error);
 
   return (
     <>
@@ -31,9 +39,7 @@ function ProductDetails() {
             sx={{
               border: "1px solid black",
             }}
-          >
-            <Corousel />
-          </Grid>
+          ></Grid>
           <Grid
             item
             xs={6}
