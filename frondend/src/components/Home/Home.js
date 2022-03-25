@@ -56,7 +56,11 @@ function Home() {
             >
               {products &&
                 products.map((produc) => {
-                  return <Product product={produc} />;
+                  return (
+                    <div key={produc._id}>
+                      <Product product={produc} />
+                    </div>
+                  );
                 })}
             </Box>
           </Box>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -13,6 +14,7 @@ import { loadUser, register } from "../../redux/actions/userAction";
 import { clearErrors, updateProfile } from "../../redux/actions/profileAction";
 import { useNavigate } from "react-router-dom";
 import { UPDATE_PROFILE_RESET } from "../../redux/constants/userConstants";
+import Snackbar from "@mui/material/Snackbar";
 import Loader from "../Loader/Loader";
 
 function UpdateProfile() {
@@ -26,6 +28,7 @@ function UpdateProfile() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const updateProfileSubmit = (e) => {
     e.preventDefault();
@@ -48,11 +51,12 @@ function UpdateProfile() {
     }
 
     if (isUpdated) {
-      dispatch(loadUser());
-      Navigate("/account");
-      dispatch({
-        type: UPDATE_PROFILE_RESET,
-      });
+      setSuccess(true);
+      // dispatch(loadUser());
+      // Navigate("/account");
+      // dispatch({
+      //   type: UPDATE_PROFILE_RESET,
+      // });
     }
   }, [dispatch, Navigate, error, user, isUpdated]);
 
@@ -113,6 +117,13 @@ function UpdateProfile() {
                 </CardContent>
               </Card>
             </Container>
+
+            <Snackbar open={success} autoHideDuration={6000}>
+              <Alert severity="success" sx={{ width: "100%" }}>
+                This is a success message!
+                {console.log("succ", success)}
+              </Alert>
+            </Snackbar>
           </form>
         </div>
       )}

@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-const jsonwebtoken = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
@@ -23,16 +22,7 @@ const userSchema = new mongoose.Schema({
     minLength: [8, "password should be atleast 8 characters"],
     select: false,
   },
-  avatar: {
-    public_id: {
-      type: String,
-      // required: true,
-    },
-    url: {
-      type: String,
-      // required: true,
-    },
-  },
+
   role: {
     type: String,
     default: "user",
@@ -54,6 +44,7 @@ userSchema.methods.getJWTToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
 // compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
