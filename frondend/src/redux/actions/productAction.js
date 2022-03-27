@@ -10,7 +10,7 @@ import {
 export const getProduct =
   (keyword = "", currentPage = 1, price = [1, 20000], category) =>
   async (dispatch) => {
-    console.log(keyword);
+    console.log(category);
     try {
       dispatch({ type: ALL_PRODUCT_REQ });
 

@@ -1,10 +1,12 @@
 import {
+  Alert,
   Button,
   Container,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -25,6 +27,7 @@ function NewProduct() {
   const { loading, error, success } = useSelector(
     (state) => state.newProdReducer
   );
+  console.log(success);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -33,6 +36,7 @@ function NewProduct() {
   const [Stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+  const [open, setOpen] = React.useState(false);
 
   const categories = [
     "Computer & Tablets",
@@ -43,6 +47,9 @@ function NewProduct() {
     "Home",
     "Sports & Hobbies",
   ];
+  function handleClose() {
+    //  Navigate("/admin/dashboard");
+  }
 
   useEffect(() => {
     if (error) {
@@ -50,7 +57,6 @@ function NewProduct() {
     }
 
     if (success) {
-      Navigate("/admin/dashboard");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
   }, [dispatch, Navigate, error, success]);
@@ -179,6 +185,16 @@ function NewProduct() {
             Add New Product
           </Button>
         </form>
+        {success && (
+          <Alert
+            autoHideDuration={6000}
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            This is a success message!
+          </Alert>
+        )}
       </Container>
     </div>
   );

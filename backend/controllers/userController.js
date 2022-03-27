@@ -8,14 +8,11 @@ exports.registerUser = async (req, res, next) => {
     name,
     email,
     password,
-    avatar: {
-      public_id: "this is a sample id",
-      url: "profilepicUrl",
-    },
   });
   // get JWT token
   sendToken(user, 201, res);
 };
+
 //Login User
 exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;

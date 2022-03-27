@@ -32,6 +32,7 @@ import NewProduct from "./components/Admin/Product/NewProduct";
 import UpdateProduct from "./components/Admin/Product/UpdateProduct";
 import ContactUs from "./components/ContactUs";
 import AboutUs from "./components/AboutUs";
+import { AdminRoute } from "./components/Route/AdminRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function App() {
             <Route path="/orders" element={<MyOrders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
           </Route>
-          <Route element={<PrivateRoute isAdmin={true} />}>
+          <Route element={<AdminRoute isAdmin={true} />}>
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/products" element={<ProductList />} />
             <Route path="/admin/product" element={<NewProduct />} />

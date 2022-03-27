@@ -26,7 +26,6 @@ function SignUp() {
   });
   const { name, email, password } = user;
   const registerSubmit = (e) => {
-    e.preventDefault();
     console.log("signup form submited");
     const myForm = new FormData();
     myForm.set("name", name);
@@ -84,9 +83,9 @@ function SignUp() {
                       name="email"
                       //  value={email}
                       //  onChange={registerDataChange}
-                      {...register("email", { required: "email is required" })}
+                      {...register("email", { required: true })}
                     />
-                    {errors.email?.type === "required" && "email is required"}
+                    {errors.email && "email is required"}
                   </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
