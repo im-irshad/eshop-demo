@@ -6,7 +6,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { Rating } from "@mui/material";
+import { IconButton, Rating } from "@mui/material";
+import DetailsIcon from "@mui/icons-material/Details";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { typography } from "@mui/system";
 
 export default function product({ product }) {
   return (
@@ -14,9 +17,7 @@ export default function product({ product }) {
       <CardMedia
         component="img"
         height="440"
-        image={
-          "https://www.intimissimi.com/dw/image/v2/BHHR_PRD/on/demandware.static/-/Sites-INT_EC_COM/default/dwc1365929/images/CMU12G860I-FI.jpg?sw=800&sfrm=jpeg"
-        }
+        image={product.images[0].url}
         alt="green iguana"
       />
       <CardContent>
@@ -30,13 +31,20 @@ export default function product({ product }) {
           readOnly
         />
         <Typography variant="subtitle2"> 256 review </Typography>
-        <Typography variant="subtitle2"> Price: 20£ </Typography>
+        <Typography variant="subtitle2">
+          {" "}
+          Price: {product.price} Kr.{" "}
+        </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">set Favourtie</Button>
-        <Button size="small" href={`/product/${product._id}`}>
-          View Detail
-        </Button>
+        <IconButton size="small" href={`/product/${product._id}`}>
+          <DetailsIcon />
+          <Typography>View Detail</Typography>
+        </IconButton>
+        <IconButton size="small">
+          <AddShoppingCartIcon />
+          <Typography>Add to Cart</Typography>
+        </IconButton>
       </CardActions>
     </Card>
   );

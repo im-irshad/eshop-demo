@@ -28,16 +28,19 @@ function Home() {
               alignItems: "center",
               width: "100hmin",
               height: "80vmin",
+              backgroundImage: `url("https://images.unsplash.com/photo-1565211604822-2641d0b081a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`,
               backgroundColor: "lightgray",
-              "&:hover": {
-                backgroundColor: "darkgray",
-                opacity: [0.9, 0.8, 0.7],
-              },
+              opacity: [0.9, 0.8, 0.5],
             }}
           >
             <Typography variant="h5">Welcome to E-shop</Typography>
             <div>
-              <Button variant="outlined" size="medium" href="#featureProducts">
+              <Button
+                variant="contained"
+                size="medium"
+                href="#featureProducts"
+                sx={{ opacity: 1 }}
+              >
                 See New Colletion
               </Button>
             </div>

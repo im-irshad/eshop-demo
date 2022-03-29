@@ -8,6 +8,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function TopHeader() {
   const Navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
+  const { cartItems } = useSelector((state) => state.cartReducer);
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -86,15 +94,23 @@ export default function TopHeader() {
               />
             </Search>
           </form>
-          <Button color="inherit" href="/login">
-            Login
-          </Button>
-          <Button color="inherit" href="/cart">
-            cart
-          </Button>
-          <Button color="inherit" href="/signup">
-            Signup
-          </Button>
+          <Tooltip title="Login">
+            <IconButton color="inherit" href="/login">
+              <LoginIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Shopping Cart">
+            <IconButton color="inherit" href="/cart">
+              <Badge badgeContent={cartItems.length} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Logout">
+            <IconButton color="inherit" href="/signup">
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </Box>
