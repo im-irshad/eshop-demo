@@ -34,7 +34,7 @@ export default function Checkout({ activeStep }) {
       >
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Company name
+            E-shop
           </Typography>
         </Toolbar>
       </AppBar>

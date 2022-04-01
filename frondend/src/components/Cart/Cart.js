@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { Button, CardMedia } from "@mui/material";
 import { rmvItFromCart } from "../../redux/actions/cartAction";
 import EmptyCart from "./EmptyCart";
+import { Typography } from "@mui/material";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -47,9 +48,7 @@ function Cart() {
                       <CardMedia
                         component="img"
                         sx={{ width: 151 }}
-                        image={
-                          "https://www.intimissimi.com/dw/image/v2/BHHR_PRD/on/demandware.static/-/Sites-INT_EC_COM/default/dwc1365929/images/CMU12G860I-FI.jpg?sw=800&sfrm=jpeg"
-                        }
+                        image={item.image}
                         alt="green iguana"
                       />
                     </TableCell>
@@ -66,6 +65,12 @@ function Cart() {
               </TableBody>
             </Table>
           </TableContainer>
+          <hr />
+
+          <Typography align="right" m={3}>{`Total Price: ${cartItems.reduce(
+            (acc, item) => acc + item.quantity * item.price,
+            0
+          )}Kr`}</Typography>
           <Button href="/checkout" variant="contained" size="medium">
             Checkout
           </Button>

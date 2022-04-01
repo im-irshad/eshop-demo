@@ -8,7 +8,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Login from "./components/User/Login";
 import SignUp from "./components/User/SignUp";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadUser } from "./redux/actions/userAction";
 import Profile from "./components/User/Profile";
 import UserMenu from "./components/Header/UserMenu";
@@ -33,12 +33,23 @@ import UpdateProduct from "./components/Admin/Product/UpdateProduct";
 import ContactUs from "./components/ContactUs";
 import AboutUs from "./components/AboutUs";
 import { AdminRoute } from "./components/Route/AdminRoute";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
   const dispatch = useDispatch();
   const { isAuth, user } = useSelector((state) => state.UserReducer);
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
   useEffect(() => {
     dispatch(loadUser());
+    getStripeApiKey();
   }, [dispatch]);
 
   return (
@@ -47,6 +58,11 @@ function App() {
       <Router>
         <Header />
         {isAuth && <UserMenu user={user} />}
+        {stripeApiKey && (
+          <Elements stripe={loadStripe(stripeApiKey)}>
+            <PrivateRoute path="/process/payment" element={<PaymentForm />} />
+          </Elements>
+        )}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetails />} />
@@ -64,7 +80,6 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/checkout" element={<AddressForm />} />
             <Route path="/order/confirm" element={<Review />} />
-            <Route path="/process/payment" element={<PaymentForm />} />
             <Route path="/orders" element={<MyOrders />} />
             <Route path="/order/:id" element={<OrderDetails />} />
           </Route>
