@@ -6,7 +6,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import Checkout from "./Checkout";
-
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import EventIcon from "@mui/icons-material/Event";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {
   CardNumberElement,
   CardCvcElement,
@@ -17,16 +19,22 @@ import {
 import axios from "axios";
 
 import { Button, Container, Paper } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
 export default function PaymentForm() {
   const { shippingInfo, cartItems } = useSelector((state) => state.cartReducer);
   const { user } = useSelector((state) => state.UserReducer);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  console.log(shippingInfo);
+  console.log(orderInfo);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = React.useRef(null);
+
+  const paymentData = {
+    amount: Math.round(orderInfo * 100),
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -72,16 +80,16 @@ export default function PaymentForm() {
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          order.paymentInfo = {
-            id: result.paymentIntent.id,
-            status: result.paymentIntent.status,
-          };
+          // order.paymentInfo = {
+          // id: result.paymentIntent.id,
+          //status: result.paymentIntent.status,
+          // };
 
-          dispatch(createOrder(order));
+          // dispatch(createOrder(order));
 
-          history.push("/success");
+          navigate("/success");
         } else {
-          alert.error("There's some issue while processing payment ");
+          console.log("There's some issue while processing payment ");
         }
       }
     } catch (error) {
@@ -104,55 +112,25 @@ export default function PaymentForm() {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id="cardName"
-                  label="Name on card"
-                  fullWidth
-                  autoComplete="cc-name"
-                  variant="standard"
-                />
+                <CreditCardIcon />
+                <CardNumberElement className="paymentInput" />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <EventIcon />
+                <CardExpiryElement className="paymentInput" />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id="cardNumber"
-                  label="Card number"
-                  fullWidth
-                  autoComplete="cc-number"
-                  variant="standard"
-                  type={CardNumberElement}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id="expDate"
-                  label="Expiry date"
-                  fullWidth
-                  autoComplete="cc-exp"
-                  variant="standard"
-                  type={CardExpiryElement}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id="cvv"
-                  label="CVV"
-                  helperText="Last three digits on signature strip"
-                  fullWidth
-                  autoComplete="cc-csc"
-                  variant="standard"
-                  type={CardCvcElement}
-                />
+                <VpnKeyIcon />
+                <CardCvcElement className="paymentInput" />
               </Grid>
               <Grid item xs={12}>
-                <Button
+                <input
                   type="submit"
-                  value={`Pay - ${orderInfo && orderInfo.totalPrice}`}
+                  value={`Pay - ${orderInfo && orderInfo}`}
                   ref={payBtn}
-                >{`Pay - ${orderInfo && orderInfo.totalPrice}`}</Button>
+                  className="paymentFormBtn"
+                />
               </Grid>
             </Grid>
           </form>

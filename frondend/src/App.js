@@ -36,6 +36,7 @@ import { AdminRoute } from "./components/Route/AdminRoute";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import LinkToPay from "./components/CheckOut/LinkToPay";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
 
     setStripeApiKey(data.stripeApiKey);
   }
+  console.log(stripeApiKey);
   useEffect(() => {
     dispatch(loadUser());
     getStripeApiKey();
@@ -57,45 +59,43 @@ function App() {
       <CssBaseline />
       <Router>
         <Header />
-        {isAuth && <UserMenu user={user} />}
-        {stripeApiKey && (
-          <Elements stripe={loadStripe(stripeApiKey)}>
-            <PrivateRoute path="/process/payment" element={<PaymentForm />} />
-          </Elements>
-        )}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/products" element={<AllProducts />} />
-          <Route path="/products/:keyword" element={<AllProducts />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/account" element={<Profile />} />
-            <Route path="/me/update" element={<UpdateProfile />} />
-          </Route>
-          <Route path="/cart" element={<Cart />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/checkout" element={<AddressForm />} />
-            <Route path="/order/confirm" element={<Review />} />
-            <Route path="/orders" element={<MyOrders />} />
-            <Route path="/order/:id" element={<OrderDetails />} />
-          </Route>
-          <Route element={<AdminRoute isAdmin={true} />}>
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/products" element={<ProductList />} />
-            <Route path="/admin/product" element={<NewProduct />} />
-            <Route path="/admin/product/:id" element={<UpdateProduct />} />
-            <Route path="/admin/orders" element={<OrderList />} />
-            <Route path="/admin/orders/:id" element={<ProcessOrder />} />
-            <Route path="/admin/users" element={<UsersList />} />
-            <Route path="/admin/user/:id" element={<UpdateUser />} />
-            <Route path="/admin/reviews" element={<ProductReviews />} />
-          </Route>
-        </Routes>
-        <Footer />
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          {isAuth && <UserMenu user={user} />}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/products" element={<AllProducts />} />
+            <Route path="/products/:keyword" element={<AllProducts />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/account" element={<Profile />} />
+              <Route path="/me/update" element={<UpdateProfile />} />
+              <Route path="/process/payment" element={<PaymentForm />} />
+            </Route>
+            <Route path="/cart" element={<Cart />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/checkout" element={<AddressForm />} />
+              <Route path="/order/confirm" element={<Review />} />
+              <Route path="/orders" element={<MyOrders />} />
+              <Route path="/order/:id" element={<OrderDetails />} />
+            </Route>
+            <Route element={<AdminRoute isAdmin={true} />}>
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/products" element={<ProductList />} />
+              <Route path="/admin/product" element={<NewProduct />} />
+              <Route path="/admin/product/:id" element={<UpdateProduct />} />
+              <Route path="/admin/orders" element={<OrderList />} />
+              <Route path="/admin/orders/:id" element={<ProcessOrder />} />
+              <Route path="/admin/users" element={<UsersList />} />
+              <Route path="/admin/user/:id" element={<UpdateUser />} />
+              <Route path="/admin/reviews" element={<ProductReviews />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </Elements>
       </Router>
     </>
   );
