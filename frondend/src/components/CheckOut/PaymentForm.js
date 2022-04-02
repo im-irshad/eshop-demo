@@ -10,12 +10,11 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
+  Elements,
+  CardElement,
+  ElementsConsumer,
 } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 
 import { Button, Container, Paper } from "@mui/material";
@@ -24,22 +23,29 @@ export default function PaymentForm() {
   const { shippingInfo, cartItems } = useSelector((state) => state.cartReducer);
   const { user } = useSelector((state) => state.UserReducer);
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  console.log(orderInfo);
+  const [stripeApiKey, setStripeApiKey] = React.useState("");
 
-  const dispatch = useDispatch();
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
+
+  React.useEffect(() => {
+    getStripeApiKey();
+  }, []);
+
   const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
   const payBtn = React.useRef(null);
 
   const paymentData = {
     amount: Math.round(orderInfo * 100),
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e, elements, stripe) => {
     e.preventDefault();
 
-    payBtn.current.disabled = true;
+    // payBtn.current.disabled = true;
 
     try {
       const config = {
@@ -59,7 +65,7 @@ export default function PaymentForm() {
 
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
-          card: elements.getElement(CardNumberElement),
+          card: elements.getElement(CardElement),
           billing_details: {
             name: user.name,
             email: user.email,
@@ -97,7 +103,10 @@ export default function PaymentForm() {
       alert.error(error.response.data.message);
     }
   };
-
+  const stripePromise = loadStripe(
+    "pk_test_51KeFVNGhQbUTO99Bzhw6cC6O8MTwqU2rXL7Tw8zW1aNcfeNtovZyvuOAWG8hls01qcQ6bOuPnYEnoLzkBWOrnddd00EplXLqu2"
+  );
+  console.log(stripePromise);
   return (
     <React.Fragment>
       <Checkout activeStep={2} />
@@ -106,34 +115,31 @@ export default function PaymentForm() {
           variant="outlined"
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
-          <form onSubmit={(e) => submitHandler(e)}>
-            <Typography variant="h6" gutterBottom>
-              Payment method
-            </Typography>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <CreditCardIcon />
-                <CardNumberElement className="paymentInput" />
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <EventIcon />
-                <CardExpiryElement className="paymentInput" />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <VpnKeyIcon />
-                <CardCvcElement className="paymentInput" />
-              </Grid>
-              <Grid item xs={12}>
-                <input
-                  type="submit"
-                  value={`Pay - ${orderInfo && orderInfo}`}
-                  ref={payBtn}
-                  className="paymentFormBtn"
-                />
-              </Grid>
-            </Grid>
-          </form>
+          <Typography variant="h6" gutterBottom style={{ margin: "20px 0" }}>
+            Payment method
+          </Typography>
+          <Elements stripe={stripePromise}>
+            <ElementsConsumer>
+              {({ elements, stripe }) => (
+                <form onSubmit={(e) => submitHandler(e, elements, stripe)}>
+                  <CardElement />
+                  <br /> <br />
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      disabled={!stripe}
+                      color="primary"
+                    >
+                      Pay {orderInfo}
+                    </Button>
+                  </div>
+                </form>
+              )}
+            </ElementsConsumer>
+          </Elements>
         </Paper>
       </Container>
     </React.Fragment>

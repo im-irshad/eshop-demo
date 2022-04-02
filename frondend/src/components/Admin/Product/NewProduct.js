@@ -18,10 +18,12 @@ import {
   CLEAR_ERRORS,
   NEW_PRODUCT_RESET,
 } from "../../../redux/constants/productConstants";
+import { useAlert } from "react-alert";
 
 function NewProduct() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
+  const alert = useAlert();
   ///////////
 
   const { loading, error, success } = useSelector(
@@ -53,13 +55,15 @@ function NewProduct() {
 
   useEffect(() => {
     if (error) {
+      alert.error(error);
       dispatch(CLEAR_ERRORS());
     }
 
     if (success) {
+      alert.success("Product Added Successfully");
       dispatch({ type: NEW_PRODUCT_RESET });
     }
-  }, [dispatch, Navigate, error, success]);
+  }, [dispatch, Navigate, error, success, alert]);
 
   const createProductHandler = (e) => {
     e.preventDefault();

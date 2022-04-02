@@ -28,6 +28,9 @@ function aboutUs() {
           <Typography variant="h3">About Me</Typography>
         </Box>
         <Box>
+          <Typography variant="h6" align="center">
+            Irshad Muhammad
+          </Typography>
           <Typography align="center" variant="subtitle1">
             I am a Full-Stack Developer, lives in Copenhagen,Denmark.
             <br /> I have experience working with: REACT, JAVASCRIPT,
